@@ -2,8 +2,14 @@ require('dotenv').config();
 const express = require('express');
 const layouts = require('express-ejs-layouts');
 const app = express();
+const session = require('express-session');
 
 app.set('view engine', 'ejs');
+
+const SECRET_SESSION = process.env.SECRET_SESSION
+
+console.log(SECRET_SESSION)
+
 
 app.use(require('morgan')('dev'));
 app.use(express.urlencoded({ extended: false }));
