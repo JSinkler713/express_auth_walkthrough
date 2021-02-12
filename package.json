@@ -1,5 +1,5 @@
 {
-  "name": "express-authentication",
+  "name": "auth",
   "version": "1.0.0",
   "description": "This is express authentication",
   "main": "server.js",
@@ -7,7 +7,7 @@
     "test": "test"
   },
   "scripts": {
-    "test": "mocha",
+    "test": "NODE_ENV=test mocha",
     "start": "node server.js"
   },
   "repository": {
@@ -23,12 +23,15 @@
   "dependencies": {
     "axios": "^0.21.0",
     "bcrypt": "^5.0.0",
+    "connect-flash": "^0.1.1",
     "dotenv": "^8.2.0",
     "ejs": "^3.1.5",
     "express": "^4.17.1",
     "express-ejs-layouts": "^2.5.0",
     "express-session": "^1.17.1",
     "morgan": "^1.10.0",
+    "passport": "^0.4.1",
+    "passport-local": "^1.0.0",
     "pg": "^8.5.1",
     "sequelize": "^6.3.5"
   },

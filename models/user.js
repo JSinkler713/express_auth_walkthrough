@@ -11,6 +11,10 @@ module.exports = (sequelize, DataTypes) => {
      * This method is not a part of Sequelize lifecycle.
      * The `models/index` file will call this method automatically.
      */
+
+    static associate(models) {
+      // define association here
+    }
     validPassword(typedPassword) {
       let isCorrectPassword = bcrypt.compareSync(typedPassword, this.password);
       return isCorrectPassword
@@ -22,31 +26,32 @@ module.exports = (sequelize, DataTypes) => {
       delete userData.password;
       return userData;
     }
-    static associate(models) {
-      // define association here
-    }
   };
   user.init({
     name: {
       type: DataTypes.STRING,
       validate: {
-        len: [1, 99],
-        msg: 'Name must be betweein 1 and 99 chars'
+        len: {
+          args: [1, 99],
+          msg: "Name must be between 1 and 99 chars"
+        }
       }
     },
     email: {
       type: DataTypes.STRING,
       validate: {
         isEmail: {
-          msg: 'Invalid email'
+          msg: "Invalid email"
         }
       }
     },
     password: {
       type: DataTypes.STRING,
       validate: {
-        len: [8, 99],
-        msg: 'Password must be between 8 and 99'
+        len:{
+          args: [8, 99],
+          msg: "Password must be between 8 and 99"
+        }
       }
     }
   }, {
@@ -56,8 +61,10 @@ module.exports = (sequelize, DataTypes) => {
 
   user.addHook('beforeCreate', (pendingUser)=> {
     // encrypt before saving in the db
-    let hash = bcrypt.hashSync(pendingUser.password, 12);
-    pendingUser.password = hash;
+    if (pendingUser && pendingUser.password) {
+      let hash = bcrypt.hashSync(pendingUser.password, 12);
+      pendingUser.password = hash;
+    }
   })
 
   return user;

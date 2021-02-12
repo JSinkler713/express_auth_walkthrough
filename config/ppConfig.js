@@ -9,16 +9,16 @@ passport.serializeUser((user, cb)=> {
 
 passport.deserializeUser((id, cb)=> {
   db.user.findByPk(id)
-    .then(user => {
-      if (user) {
-        cb(null, user);
-      }
-      console.log('user is null')
-    })
-    .catch(err=> {
-      console.log('error')
-      console.error(err)
+  .then(user => {
+    if (user) {
+      cb(null, user);
     }
+    console.log('user is null')
+  })
+  .catch(err=> {
+    console.log('error')
+    console.error(err)
+  })
 })
 
 
